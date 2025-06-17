@@ -54,7 +54,7 @@ Before cleaning the data need to be first explore the data and analysing it with
    Years of Experience <-> Salary
    Salary depends on Years of Experience and possibly Education Level
 
-2. GroupBy method used to explore the relationship with different feature
+2. GroupBy method used to explore the relationship with different feature.
 
    
 
