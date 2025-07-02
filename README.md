@@ -1,60 +1,96 @@
-# Salary-Prediction
+**Salary Prediction Using Linear Regression**
 
-Objective: 
-Predict the salary based on every features in the dataset.
+This project focuses on predicting employee salaries based on features like:
+Age
+Gender
+Education Level
+Job Title
+Years of Experience
 
-Overview:
-These project is divided into three phases.
+The entire workflow includes:
+1. Data exploration & cleaning
+2. Statistical analysis & preprocessing
+3. Model training, evaluation, and visualization
 
-First Phase:
-Data exploration and data cleaning
+---
 
-Second Phase:
-Advance statistics and EDA before training the model
+**Dataset Overview**
 
-Third Phase:
-Model traning and making future predicitions and visualize it by making dashboard 
+**Rows**: 6,704
+**Features**: 6 ('Age', 'Gender', 'Education Level', 'Job Title', 'Years of Experience', 'Salary')
+**Problem**: Predict Salary (continuous variable)
 
-These project is currently in evolution phase.
 
-**Data Structure**
-There are 6704 data points (rows) and 6 features (attributes)
-The data is messy need to clean it before further process
+**Phase 1: Data Cleaning & Exploration**
 
-Before cleaning the data need to be first explore the data and analysing it with some basic methods.
+**Data Structure:**
+'Age', 'Years of Experience', 'Salary' =**Numeric**
+'Gender', 'Education Level', 'Job Title' = **Categorical**
 
-1. Understand the attributes
-   Age: The age of the particular employee
-   Gender: The gender identification of the employee
-   Education: The educational background of the employee
-   Job Title: The domain of the current job of the employee
-   Years of Experience: The experience in the particular job domain
-   Salary: The Current salary of the employee
+**Data Cleaning:**
+Filled missing 'Years of Experience' using average by Age
+Filled missing 'Salary` based on average' by 'Job Title'
+Imputed missing 'Education Level' using mode from the same job group
+Removed 73% duplicate rows for clean analysis
+Replaced inconsistent entries (e.g., "Bachelor's" vs "Bachelor's Degree")
 
-   The data type of the attributes are in float and object
-   float: Age, Years of Experience, and Salary
-   object: Gender, Education level, and Job Title
 
-2. To get the count of the unique values per column by using **nunique()** method.
-   Toget the actual unique values **unique()** method can be use, but to get for all features   **for loop**, the **unique()** method can be useful only for **single pandas series** not for **DataFrame**
 
-3. Obeseravtion to note, the **nunique()** method doesn't include the NaN values, there might be some missing values.
-4. Where as in the **unique()** method the NaN will display with the unique values of the particular feature.
-5. The feature "Education Level" contain data points with same background but different identification, "Bachelor's" and "Bachelor's Degree" are the similar in terms of qulification.
+**Phase 2: Statistical Processing**
 
-**Exploratory Data Analysis (Inital stage)**
-1. Summarized statistics using describe() method the summary of the numeric feature displays include "count, mean, std, min, 25%, 50%, 75% , and max". The main focus was on count, min, and max to get idea of missing values and the maximum and minimum data points from each features.
-2. Summarized the categorical data using value_counts() method, count the unique values of every data points. Can aso incluse NaN to count number of null values inside the feature.
+**Skewness Correction:**
+Applied **log(x + 1)** transformation to `Age` and `Years of Experience`
+Reduced skewness to < 0.5 for normality approximation
 
-**Handling missing value**
-1. To handle the missing value, first need to identify the dependency between the features.
-   Key Observation:
-   Age <-> Years of Experience
-   Years of Experience deponds on Age and possibly Job Title
-   Years of Experience <-> Salary
-   Salary depends on Years of Experience and possibly Education Level
+**Normalization:**
+Applied **StandardScaler** to standardize:
+Mean = 0
+Std Dev = 1
 
-2. GroupBy method used to explore the relationship with different feature.
+**Categorical Encoding:**
+Education Level: Ordinal Mapping (Unknown: 0, Bachelor's: 1, ...)
+Gender: One-Hot Encoding (Male, Female, Other)
+Job Title: Frequency Encoding (handles 193 unique titles)
 
-   
+**Phase 3: Model Training & Evaluation**
+
+**Model Used:**
+**Linear Regression**
+Trained on 80% of the dataset, tested on 20%
+
+**Evaluation Metrics:**
+Train Accuracy: 0.7910765074301789
+Test Accuracy: 0.7849867723021282
+Mean Absolute Error: 17476.670709373662
+Mean Squared Error: 581026398.4149253
+
+
+**Data Visualizations**
+**Actual vs Predicted Salary (Standardized Experience)**
+Shows how predicted salaries compare against actual, with standardized experience on the x-axis.
+
+**Actual vs Predicted Salary (All Features)**
+A scatter plot with a reference line to show prediction closeness. Ideal predictions would lie on the red line.
+
+**Key Learnings**
+Data preparation is **more complex and more important** than model training.
+Encoding high-cardinality features (Job Titles) with **frequency encoding** helped avoid sparse matrices.
+**Log transformation** reduced skewness and helped the regression model generalize better.
+A **Linear Regression** model can still perform well with **proper preprocessing**.
+
+**Tools & Libraries**
+Python 3
+Pandas, NumPy
+Matplotlib, Seaborn
+scikit-learn
+
+**Future Work**
+Try **Ridge, Lasso, or ElasticNet** for regularization
+Add **cross-validation** and **grid search**
+Build an interactive **dashboard using Streamlit or Power BI**
+Convert notebook to an **end-to-end pipeline**
+
+
+
+
 
